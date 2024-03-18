@@ -2,19 +2,20 @@
 FROM python:3.12
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy the current directory contents into the container at /usr/src/app
-COPY . .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
 # Define environment variable
-ENV NAME World
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
 
 # Run app.py when the container launches
-CMD ["python", "./app/back/my_script.py"]
+CMD ["flask", "run"]
